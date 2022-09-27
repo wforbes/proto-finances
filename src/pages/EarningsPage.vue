@@ -1,66 +1,28 @@
 <template>
 	<q-page>
-		<div class="row justify-center">
-			<q-form class="q-pt-md">
-				<div class="row">
-					<q-input
-						v-model="newEarnings.name"
-						label="New Earnings Name"
-						outlined
-						class="q-mr-md"
-					/>
-					<q-input
-						v-model="newEarnings.startDate"
-						mask="date"
-						outlined
-					>
-						<template v-slot:append>
-							<q-icon name="event" class="cursor-pointer">
-								<q-popup-proxy
-									cover
-									transition-show="scale"
-									transition-hide="scale"
-								>
-									<q-date v-model="newEarnings.startDate">
-										<div
-											class="row items-center justify-end"
-										>
-											<q-btn
-												v-close-popup
-												label="Close"
-												color="primary"
-												flat
-											/>
-										</div>
-									</q-date>
-								</q-popup-proxy>
-							</q-icon>
-						</template>
-					</q-input>
-				</div>
-			</q-form>
-		</div>
 		<div class="row q-px-lg">
 			<div class="column" style="width: 100%">
 				<LineChart :chartData="testData" :options="lineOptions" />
 			</div>
 		</div>
+		<div class="row justify-center">
+			<NewEarningsForm />
+		</div>
 	</q-page>
 </template>
 <script>
+import NewEarningsForm from "src/components/NewEarningsForm.vue";
 import { LineChart } from "vue-chart-3";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 export default {
 	name: "EarningsPage",
 	components: {
+		NewEarningsForm,
 		LineChart,
 	},
 	data() {
 		return {
-			newEarnings: {
-				date: undefined,
-			},
 			testData: {
 				labels: [],
 				datasets: [
